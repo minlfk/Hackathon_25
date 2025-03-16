@@ -1,0 +1,48 @@
+Dockerfile
+.DS_Store
+
+# Byte-compiled Python files
+*.py[cod]
+__pycache__/
+*$py.class
+**/*.pyc
+
+# Virtual environment files
+.env
+.venv/
+env/
+venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Git files
+.git/
+.gitignore
+.DS_Store
+
+# Build artifacts
+dist/
+build/
+
+# Logs
+*.log
+logs/
+var/log/
+
+# Documentation
+docs/
+doc/
+
+# Testing files
+tests/
+test/
+coverage/
+htmlcov/
+
+# FastAPI specific files
+*.pid
+fastapi.pid
