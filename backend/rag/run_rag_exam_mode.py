@@ -60,3 +60,9 @@ def get_response(history=[], ):
     userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
 
     return response
+
+# def get_response_continue(history=[], ):
+#     response=""
+#     while response not in ["yes", "no"]:
+#         response=call_gpt4_api(history, "Do you think the last utterance starts a new question? Only say 'yes' or 'no'.").lower()
+#     return response
