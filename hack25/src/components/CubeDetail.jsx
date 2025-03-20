@@ -78,10 +78,16 @@ function DetailedCube({ selectedPair }) {
   };
 
   // Define face configurations based on selected pair
-  const getFaceConfig = (inner, outer) => {
-    // Default face configuration for other combinations
-    const topics = data[outer][inner];
-    debugger;
+  const getFaceConfig = (outer, inner) => {
+    // Convert the inner selection to the correct key
+    const innerKey = inner === 'norms' ? 'nav' : 
+                    inner === 'concerns' ? 'cai' : 
+                    inner === 'resources' ? 'resources' : 
+                    inner === 'stakeholders' ? 'stakeholders' : inner;
+    
+    // Access data with correct structure: data[innerKey][outer]
+    const topics = data[innerKey][outer];
+    
     return [
       { position: [0, 0, 0.61], rotation: [0, 0, 0], label: `${topics[1]}`, route: `/${topics[1]}`, buttonImage: hsgIcon },
       { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: `${topics[2]}`, route: `/${topics[2]}`, buttonImage: hsgIcon },
