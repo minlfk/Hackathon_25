@@ -1,2 +1,6 @@
 uvicorn
 fastapi
+pydantic
+python-dotenv
+openai==0.28.0
+faiss-cpu

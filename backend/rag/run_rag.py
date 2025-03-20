@@ -1,13 +1,14 @@
 #adjust paths here
-chunks="chunks.json"
-index="index.bin"
+chunks="rag/chunks.json"
+index="rag/index.bin"
 
 
 from json import load
 import faiss
 import openai
 import numpy as np
-from keys import *
+from rag.keys import *
+from time import sleep
 
 openai.api_key=openaikey
 
@@ -25,7 +26,7 @@ def call_gpt4_api(history, prompt, model="gpt-4o", repeat: int = 1, retries: int
         if retries==0:
             pass
         sleep(2**(8-retries))
-        return call_gpt4_api_noimage(history, prompt, repeat, retries-1)
+        return call_gpt4_api(history, prompt, repeat, retries-1)
     return response["choices"][0]["message"]["content"]
 
 

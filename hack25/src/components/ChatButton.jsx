@@ -20,12 +20,17 @@ const ChatButton = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          persona: { usecase: "general" },
+          persona: { usecase: "exam" },
           chat_history: updatedMessages,
         }),
       });
       const data = await response.json();
-      setMessages(data);
+      if (Array.isArray(data)) {
+        setMessages(data);
+      } else {
+        console.error("Unexpected response format:", data);
+      }
+      setIsChatOpen(true); // Ensure the chat window remains open
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -88,9 +93,8 @@ const ChatButton = () => {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`${
-                      msg.role === "user" ? "bg-blue-100" : "bg-gray-100"
-                    } rounded-lg px-4 py-2 max-w-[80%]`}
+                    className={`${msg.role === "user" ? "bg-blue-100" : "bg-gray-100"
+                      } rounded-lg px-4 py-2 max-w-[80%]`}
                   >
                     <p className="text-gray-800">{msg.content}</p>
                   </div>
