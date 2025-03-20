@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 const CircularInterface = () => {
   const [showCubeDetail, setShowCubeDetail] = useState(false);
-  const [selectedOuter, setSelectedOuter] = useState(null);
-  const [selectedInner, setSelectedInner] = useState(null);
+  const [selectedOuter, setSelectedOuter] = useState("technology");
+  const [selectedInner, setSelectedInner] = useState("resources");
   
   // Use consistent measurements
   const containerSize = 400;
@@ -66,15 +66,17 @@ const CircularInterface = () => {
     >
       <button
         style={{
-          width: '10px',
-          height: '10px',
-          backgroundColor: isSelected ? '#ffe1d7' : 'white', // New selected color
-          borderRadius: '50%',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-          transition: 'all 0.2s ease',
-          border: 'none',
-          cursor: 'pointer',
-          marginBottom: '4px',
+            display: 'block',      // Prevents flexbox stretching
+            width: '20px',
+            aspectRatio: '1',      // Ensures a perfect circle
+            backgroundColor: isSelected ? '#ffe1d7' : 'white',
+            borderRadius: '50%',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.2s ease',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,            // Removes unnecessary padding
+            flexShrink: 0,  
         }}
         onMouseEnter={(e) => {
           e.target.style.transform = 'scale(1.1)';

@@ -15,7 +15,7 @@ const ChatPage = () => {
     setInput("");
 
     try {
-      const response = await fetch("/chat", {
+      const response = await fetch("tmp-gresfbded4dyfvg6.canadacentral-01.azurewebsites.net", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const ChatPage = () => {
                 placeholder="Type a message..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                className="flex-1 px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               />
               <button
                 onClick={sendMessage}
