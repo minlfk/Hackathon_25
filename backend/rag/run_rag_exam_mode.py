@@ -42,13 +42,22 @@ def get_openai_embedding(text):
         input=text, model="text-embedding-ada-002"
     )
     return response["data"][0]["embedding"]
-
-query=input("Enter question: ")
-
-retrieved_chunks = search_faiss(query, index, chunks)
-retrieved_question=search_faiss(query, ex_index, ex_chunks, top_k=1)[0]
-
 sysprompt="You are a helpful assistant. The user is trying to solve a exam question. We have retrieved some information relevant to the question. We also retrieved a similar question, its marking scheme and the rough structure of an example answer. Try to give an answer to the best of your abilities."
-userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
-response=call_gpt4_api([{"role":"user","content":userprompt}], sysprompt)
-print(response)
+if __name__ == "__main__":
+    query=input("Enter question: ")
+
+    retrieved_chunks = search_faiss(query, index, chunks)
+    retrieved_question=search_faiss(query, ex_index, ex_chunks, top_k=1)[0]
+
+    
+    userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
+    response=call_gpt4_api([{"role":"user","content":userprompt}], sysprompt)
+
+def get_response(history=[], query=""):
+    query=input("Enter question: ")
+
+    retrieved_chunks = search_faiss(query, index, chunks)
+    retrieved_question=search_faiss(query, ex_index, ex_chunks, top_k=1)[0]
+    userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
+
+    return response
