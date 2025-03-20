@@ -1,32 +1,27 @@
 import { useNavigate } from 'react-router-dom';
+import CircularInterface from './CircularInterface';
 
 const UserDashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-screen bg-gray-100">
+    <div className="fixed inset-0 bg-gray-100">
       {/* Header */}
       <div className="w-full bg-white shadow-lg">
-        <div className="w-full px-6 py-4 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <span className="text-gray-600">example@email.com</span>
-            <button 
-              onClick={() => navigate('/login')}
-              className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              Logout
-            </button>
+        <div className="w-full px-4 md:px-6 py-3 md:py-4 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+          <h1 className="text-l sm:text-xl md:text-2xl lg:text-3xl text-gray-800 font-bold">
+            Zukunft-Fabrik
+          </h1>
+          <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+            space
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="w-full p-6">
-        <div className="w-full bg-white rounded-lg shadow-lg p-6">
-          <p className="text-gray-600 text-lg">
-            This is a generic dashboard page. You can add your content here.
-          </p>
+      <div className="w-full h-[calc(100vh-4rem)] p-4 md:p-6 overflow-auto">
+        <div className="w-full bg-white rounded-lg shadow-lg p-8 flex justify-center items-center">
+          <CircularInterface />
         </div>
       </div>
     </div>
