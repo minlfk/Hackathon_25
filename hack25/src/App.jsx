@@ -9,6 +9,7 @@ import PageLayout from './components/PageLayout';
 import CubeDetail from './components/CubeDetail';
 
 import './App.css'
+import DeepDive from './pages/DeepDive';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/tech-resources/f" element={<div>Technology + Resources: Option F</div>} />
 
           {/* Default routes for other combinations */}
+          <Route path="/:id1/:id2/:id3" element={<DeepDive />} />
           <Route path="/front" element={<div>Front Face Content</div>} />
           <Route path="/back" element={<div>Back Face Content</div>} />
           <Route path="/left" element={<div>Left Face Content</div>} />
@@ -36,7 +38,7 @@ function App() {
           <Route path="/bottom" element={<div>Bottom Face Content</div>} />
           <Route path="/settings" element={<div>Settings Page</div>} />
         </Routes>
-        <div className="flex-1 text-center text-black no-underline fixed bottom-0 w-full flex justify-between bg-white border-t border-gray-300 py-2">
+        <div className="flex-1 text-center text-black no-underline fixed bottom-0 w-60 flex justify-between bg-white border-t border-gray-300 py-2">
           <Link to="/">Home</Link>
           <Link to="/chat">Chat</Link>
           <Link to="/settings">Settings</Link>

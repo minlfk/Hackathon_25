@@ -6,16 +6,19 @@ import zukunftLogo from '../assets/zukunft-fabrik-logo.png';
 
 function CubeFace({ position, rotation, color, hoverColor, label, route, navigate, buttonImage }) {
   const [hovered, setHovered] = useState(false);
-  
+
   // Load the button texture - using the imported image
   const texture = useTexture(buttonImage || zukunftLogo); // Using zukunftLogo as default for now
+  // Random, was annoying my editor..
+  const hover = () => hoverColor;
+  hover();
 
   return (
     <group position={position} rotation={rotation}>
       {/* Main face - not clickable */}
       <mesh>
         <planeGeometry args={[1.2, 1.2]} />
-        <meshPhysicalMaterial 
+        <meshPhysicalMaterial
           color={color}
           metalness={0.0}
           roughness={0.8}
@@ -34,7 +37,7 @@ function CubeFace({ position, rotation, color, hoverColor, label, route, navigat
         onClick={() => navigate(route)}
       >
         <planeGeometry args={[0.4, 0.4]} />
-        <meshBasicMaterial 
+        <meshBasicMaterial
           map={texture}
           transparent={true}
           opacity={hovered ? 0.8 : 1}
@@ -57,7 +60,7 @@ function CubeFace({ position, rotation, color, hoverColor, label, route, navigat
 
 function DetailedCube({ selectedPair }) {
   const navigate = useNavigate();
-  const [hovered, setHovered] = useState(false);
+  //const [hovered, setHovered] = useState(false);
 
   // Define cube colors for different pairs
   const getCubeColor = (outer, inner) => {
@@ -75,25 +78,14 @@ function DetailedCube({ selectedPair }) {
 
   // Define face configurations based on selected pair
   const getFaceConfig = (outer, inner) => {
-    if (outer === 'technology' && inner === 'resources') {
-      return [
-        { position: [0, 0, 0.61], rotation: [0, 0, 0], label: "AI", route: "/tech-resources/ai", buttonImage: zukunftLogo },
-        { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: "Sustainability", route: "/tech-resources/sustainability", buttonImage: zukunftLogo },
-        { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: "Management", route: "/tech-resources/management", buttonImage: zukunftLogo },
-        { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: "Data", route: "/tech-resources/data", buttonImage: zukunftLogo },
-        { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: "Knowledge", route: "/tech-resources/knowledge", buttonImage: zukunftLogo },
-        { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: "Security", route: "/tech-resources/security", buttonImage: zukunftLogo }
-      ];
-    }
 
-    // Default face configuration for other combinations
     return [
-      { position: [0, 0, 0.61], rotation: [0, 0, 0], label: "Front", route: "/front", buttonImage: zukunftLogo },
-      { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: "Back", route: "/back", buttonImage: zukunftLogo },
-      { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: "Right", route: "/right", buttonImage: zukunftLogo },
-      { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: "Left", route: "/left", buttonImage: zukunftLogo },
-      { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: "Top", route: "/top", buttonImage: zukunftLogo },
-      { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: "Bottom", route: "/bottom", buttonImage: zukunftLogo }
+      { position: [0, 0, 0.61], rotation: [0, 0, 0], label: "Front", route: `/${outer}/${inner}/front`, buttonImage: zukunftLogo },
+      { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: "Back", route: `/${outer}/${inner}/back`, buttonImage: zukunftLogo },
+      { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: "Right", route: `/${outer}/${inner}/right`, buttonImage: zukunftLogo },
+      { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: "Left", route: `/${outer}/${inner}/left`, buttonImage: zukunftLogo },
+      { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: "Top", route: `/${outer}/${inner}/top`, buttonImage: zukunftLogo },
+      { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: "Bottom", route: `/${outer}/${inner}/bottom`, buttonImage: zukunftLogo }
     ];
   };
 
@@ -118,16 +110,16 @@ function DetailedCube({ selectedPair }) {
 const SelectionVisualization = ({ selectedPair }) => {
   const outerCircleSize = "90px"; // Halved from 120px
   const innerCircleSize = "70px"; // 75% of outer circle size
-  
+
   return (
     <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
       {/* Outer circle with label */}
       <div className="flex flex-col items-center">
-        <div 
+        <div
           className="rounded-full flex items-center justify-center mb-2"
-          style={{ 
-            width: outerCircleSize, 
-            height: outerCircleSize, 
+          style={{
+            width: outerCircleSize,
+            height: outerCircleSize,
             backgroundColor: '#6cb8cd',
             // opacity: 0.8
           }}
@@ -140,11 +132,11 @@ const SelectionVisualization = ({ selectedPair }) => {
 
       {/* Inner circle with label */}
       <div className="flex flex-col items-center">
-        <div 
+        <div
           className="rounded-full flex items-center justify-center mb-2"
-          style={{ 
-            width: innerCircleSize, 
-            height: innerCircleSize, 
+          style={{
+            width: innerCircleSize,
+            height: innerCircleSize,
             backgroundColor: '#b3dbe6',
             // opacity: 0.8
           }}
@@ -173,7 +165,7 @@ const CubeDetail = ({ onClose, selectedPair }) => {
         >
           ×
         </button>
-        
+
         {/* Cube container - moved slightly to the left */}
         <div className="absolute left-0 w-3/4 h-full">
           <Canvas camera={{ position: [8, 8, 8], fov: 45 }}>
@@ -181,7 +173,7 @@ const CubeDetail = ({ onClose, selectedPair }) => {
             <directionalLight position={[5, 5, 3]} intensity={0.6} />
             <pointLight position={[-5, -5, -5]} intensity={0.3} />
             <DetailedCube selectedPair={selectedPair} />
-            <OrbitControls 
+            <OrbitControls
               enableZoom={true}
               enablePan={false}
               minDistance={6}
