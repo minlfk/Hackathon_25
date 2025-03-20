@@ -1,5 +1,5 @@
 # Stage 1: Build React app
-FROM node:16 as build
+FROM node:20 AS build
 
 WORKDIR /app/frontend
 
@@ -23,14 +23,8 @@ WORKDIR /app
 # Copy the FastAPI backend
 COPY backend/ /app/backend
 
-# Accept GitHub token as a build argument
-ARG GITHUB_TOKEN
-
 # Change to the backend directory where requirements.txt is located
 WORKDIR /app/backend
-
-# Modify the requirements.txt with the GitHub token
-RUN sed -i "s|git+https://github|git+https://$GITHUB_TOKEN@github|" requirements.txt
 
 # Install Python dependencies
 RUN pip install -r requirements.txt
@@ -48,4 +42,4 @@ COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80 8000
 
 # Start Nginx and FastAPI
-CMD nginx -g 'daemon off;' & uvicorn backend.main:app --host 0.0.0.0 --port 8000
+CMD nginx -g 'daemon off;' & uvicorn backend.app:app --host 0.0.0.0 --port 8000
