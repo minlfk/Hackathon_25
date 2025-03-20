@@ -1,12 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserDashboard from './components/UserDashboard';
-import ChatButton from './components/ChatButton';
-import ChatPage from './pages/ChatPage';
-import FrontPage from './pages/FrontPage';
-import PageLayout from './components/PageLayout';
-import CubeDetail from './components/CubeDetail';
+import ChatPage from './components/ChatPage';
+
 
 import './App.css'
 import DeepDive from './pages/DeepDive';
@@ -19,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<UserDashboard />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/case-study" element={<div>Case Study Page</div>} />
+          <Route path="/profile" element={<div>User Profile Page</div>} />
 
           {/* Technology + Resources specific routes */}
           <Route path="/tech-resources/a" element={<div>Technology + Resources: Option A</div>} />
@@ -38,11 +35,6 @@ function App() {
           <Route path="/bottom" element={<div>Bottom Face Content</div>} />
           <Route path="/settings" element={<div>Settings Page</div>} />
         </Routes>
-        <div className="flex-1 text-center text-black no-underline fixed bottom-0 w-60 flex justify-between bg-white border-t border-gray-300 py-2">
-          <Link to="/">Home</Link>
-          <Link to="/chat">Chat</Link>
-          <Link to="/settings">Settings</Link>
-        </div>
       </Router>
     </>
   );

@@ -3,12 +3,14 @@ import { OrbitControls, Text, useTexture } from '@react-three/drei';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import zukunftLogo from '../assets/zukunft-fabrik-logo.png';
+import BottomToolbar from './BottomToolbar';
+import BackButton from './BackButton';
 
 function CubeFace({ position, rotation, color, hoverColor, label, route, navigate, buttonImage }) {
   const [hovered, setHovered] = useState(false);
 
-  // Load the button texture - using the imported image
-  const texture = useTexture(buttonImage || zukunftLogo); // Using zukunftLogo as default for now
+  // Load the button texture
+  const texture = useTexture(buttonImage || zukunftLogo);
   // Random, was annoying my editor..
   const hover = () => hoverColor;
   hover();
@@ -151,21 +153,24 @@ const SelectionVisualization = ({ selectedPair }) => {
 };
 
 const CubeDetail = ({ onClose, selectedPair }) => {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-100">
-      <div className="relative w-[95vw] h-[95vh] bg-gray-100 rounded-lg">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-100">
+      <BackButton onClick={handleBack} />
+      <div className="relative w-[95vw] h-[calc(95vh-4rem)] bg-gray-100">
         {/* Instruction text */}
-        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-white text-lg font-medium bg-purple-900 bg-opacity-50 px-4 py-2 rounded-full shadow-lg">
+        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-white text-lg font-medium bg-purple-900 bg-opacity-50 px-4 py-2 rounded-full shadow-lg z-20">
           Turn the cube around
         </div>
-
-        <button
-          className="absolute top-4 right-4 text-white text-xl bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-700 transition-colors z-10"
-          onClick={onClose}
-        >
-          ×
-        </button>
-
         {/* Cube container - moved slightly to the left */}
         <div className="absolute left-0 w-3/4 h-full">
           <Canvas camera={{ position: [8, 8, 8], fov: 45 }}>
@@ -184,8 +189,11 @@ const CubeDetail = ({ onClose, selectedPair }) => {
 
         {/* Selection Visualization */}
         <SelectionVisualization selectedPair={selectedPair} />
-      </div>
-    </div>
+      </div >
+
+      {/* Bottom Toolbar */}
+      < BottomToolbar />
+    </div >
   );
 };
 
