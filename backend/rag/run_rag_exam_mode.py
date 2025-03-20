@@ -53,9 +53,8 @@ if __name__ == "__main__":
     userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
     response=call_gpt4_api([{"role":"user","content":userprompt}], sysprompt)
 
-def get_response(history=[], query=""):
-    query=input("Enter question: ")
-
+def get_response(history=[], ):
+    query=history[-1]["content"]
     retrieved_chunks = search_faiss(query, index, chunks)
     retrieved_question=search_faiss(query, ex_index, ex_chunks, top_k=1)[0]
     userprompt="Query: "+query+"Retrieved chunks"+"\n\n".join(str(i+1)+". "+chunk for i, chunk in enumerate(retrieved_chunks))+"Similar Question: "+retrieved_question["Question Text"]+"Marking Scheme: "+retrieved_question["Marking Scheme"]+"Example Answer(rough structure): "+retrieved_question["Example Answer"]
