@@ -1,11 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
-const BackButton = () => {
+const BackButton = ({ route = '/', onClick }) => {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(route);
+    }
+  };
 
   return (
     <button
-      onClick={() => navigate(-1)}
+      onClick={handleClick}
       style={{ backgroundColor: '#ffffff' }}
       className="fixed top-4 left-4 text-gray-600 hover:bg-gray-50 transition-all z-50 flex items-center gap-2 px-3 py-2 rounded-lg shadow-md"
     >

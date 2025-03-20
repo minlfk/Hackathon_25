@@ -19,11 +19,9 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="w-full h-[calc(100vh-4rem-4rem)] p-4 md:p-6 overflow-auto"> {/* Adjusted height for toolbar */}
-        {/* <div className="w-full bg-white rounded-lg shadow-lg p-8 flex justify-center items-center"> */}
-          <CircularInterface />
-        {/* </div> */}
+      {/* Main Content - Centered */}
+      <div className="w-full h-[calc(100vh-4rem-4rem)] flex items-center justify-center">
+        <CircularInterface />
       </div>
 
       {/* Bottom Toolbar */}

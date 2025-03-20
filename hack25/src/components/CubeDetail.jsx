@@ -167,9 +167,19 @@ const SelectionVisualization = ({ selectedPair }) => {
 };
 
 const CubeDetail = ({ onClose, selectedPair }) => {
+  const navigate = useNavigate();
+  
+  const handleBack = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="fixed inset-0 flex flex-col items-center justify-center bg-gray-100">
-      <BackButton />
+      <BackButton onClick={handleBack} />
       <div className="relative w-[95vw] h-[calc(95vh-4rem)] bg-gray-100">
         {/* Instruction text */}
         <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-white text-lg font-medium bg-purple-900 bg-opacity-50 px-4 py-2 rounded-full shadow-lg z-20">
