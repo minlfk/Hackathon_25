@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserDashboard from './components/UserDashboard';
 import ChatPage from './components/ChatPage';
-
+import Share from './components/Share';
 
 import './App.css'
 import DeepDive from './pages/DeepDive';
@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<UserDashboard />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/case-study" element={<div>Case Study Page</div>} />
-          <Route path="/profile" element={<div>User Profile Page</div>} />
+          <Route path="/share" element={<Share />} />
 
           {/* Technology + Resources specific routes */}
           <Route path="/tech-resources/a" element={<div>Technology + Resources: Option A</div>} />

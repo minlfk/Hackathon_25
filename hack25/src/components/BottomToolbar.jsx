@@ -8,8 +8,8 @@ const BottomToolbar = () => {
       style={{ backgroundColor: '#ffffff' }}
       className="fixed bottom-0 left-0 right-0 shadow-lg h-16 flex justify-center items-center z-80"
     >
-      <div className="flex justify-between w-full max-w-screen-lg px-4 md:px-8">
-        {/* Home Button */}
+      <div className="flex justify-between w-full max-w-screen-lg pl-2 pr-6 md:pl-4 md:pr-8">
+      {/* Home Button */}
         <button
           onClick={() => navigate('/')}
           style={{ backgroundColor: '#ffffff' }}
@@ -17,7 +17,8 @@ const BottomToolbar = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6.5 w-6.5 md:h-8 md:w-8"
+            style={{ width: '26px', height: '26px' }}
+            className="md:h-8 md:w-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -40,7 +41,8 @@ const BottomToolbar = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6.5 w-6.5 md:h-8 md:w-8"
+            style={{ width: '26px', height: '26px' }}
+            className="md:h-8 md:w-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -63,7 +65,8 @@ const BottomToolbar = () => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6.5 w-6.5 md:h-8 md:w-8"
+            style={{ width: '26px', height: '26px' }}
+            className="md:h-8 md:w-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -80,13 +83,14 @@ const BottomToolbar = () => {
 
         {/* User Button */}
         <button
-          onClick={() => navigate('/profile')}
+          onClick={() => navigate('/share')}
           style={{ backgroundColor: '#ffffff' }}
           className="flex flex-col items-center justify-center text-gray-600 hover:text-blue-600 transition-colors h-14"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6.5 w-6.5 md:h-8 md:w-8"
+            style={{ width: '26px', height: '26px' }}
+            className="md:h-8 md:w-8"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -95,10 +99,10 @@ const BottomToolbar = () => {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14"
             />
           </svg>
-          <span className="text-xs md:text-sm mt-1">Profile</span>
+          <span className="text-xs md:text-sm mt-1">Stories</span>
         </button>
       </div>
     </div>

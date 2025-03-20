@@ -44,13 +44,13 @@ function Cube({ onCubeClick, selectedPair }) {
     } else if (outer === 'economy' && inner === 'norms') {
       return "#ef4444"; // Brighter red (red-500) for Economy combinations
     } else if (outer === 'economy' && inner === 'concerns') {
-      return "#ff961b"; // Brighter red (red-500) for Economy combinations
+      return "#ef4444"; // Brighter red (red-500) for Economy combinations
     }
   };
 
   const cubeColor = selectedPair.outer && selectedPair.inner 
     ? getCubeColor(selectedPair.outer, selectedPair.inner)
-    : "#ddd6fe"; // Even lighter purple (violet-200) when no selection
+    : "#61e0f6"; // Even lighter purple (violet-200) when no selection
 
   return (
     <mesh

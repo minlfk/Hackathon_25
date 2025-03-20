@@ -23,8 +23,9 @@ const CircularInterface = () => {
 
   const innerButtons = [
     { label: "Resources", value: "resources" },
-    { label: "Norms & Values", value: "norms" },
-    { label: "Concerns & Interests", value: "concerns" },
+    { label: "Norms\n& Values", value: "norms" },
+    { label: "Concerns\n& Interests", value: "concerns" },
+    { label: "Stakeholders", value: "stakeholders" }
   ];
 
   // Calculate positions for buttons
@@ -36,8 +37,8 @@ const CircularInterface = () => {
     };
   });
 
-  const buttonPositionsInner = Array.from({ length: 3 }).map((_, index) => {
-    const angle = (index * Math.PI * 2) / 8  - Math.PI/1.35;
+  const buttonPositionsInner = Array.from({ length: 4 }).map((_, index) => {
+    const angle = (index * Math.PI * 2) / 10 - Math.PI/1.25;
     return {
       left: `${Math.cos(angle) * radiusInner + center}px`,
       top: `${Math.sin(angle) * radiusInner + center}px`,
@@ -94,7 +95,10 @@ const CircularInterface = () => {
         fontSize: '10px',
         fontWeight: isSelected ? '700' : '500', // Bold when selected
         textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        whiteSpace: 'pre-line',
+        textAlign: 'center',
+        lineHeight: '1.2'
       }}>
         {data.label}
       </span>

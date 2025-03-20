@@ -189,7 +189,7 @@ const CubeDetail = ({ onClose, selectedPair }) => {
         
         {/* Cube container - moved slightly to the left */}
         <div className="absolute left-0 w-3/4 h-full">
-          <Canvas camera={{ position: [5.6, 5.6, 5.6], fov: 45 }}>
+          <Canvas camera={{ position: [8, 8, 8], fov: 45 }}>
             <ambientLight intensity={0.5} />
             <directionalLight position={[5, 5, 3]} intensity={0.6} />
             <pointLight position={[-5, -5, -5]} intensity={0.3} />
@@ -197,8 +197,8 @@ const CubeDetail = ({ onClose, selectedPair }) => {
             <OrbitControls 
               enableZoom={true}
               enablePan={false}
-              minDistance={4.2}
-              maxDistance={14}
+              minDistance={6}
+              maxDistance={20}
             />
           </Canvas>
         </div>
