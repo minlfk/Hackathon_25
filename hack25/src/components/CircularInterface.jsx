@@ -50,11 +50,6 @@ const CircularInterface = () => {
     } else {
       setSelectedInner(value);
     }
-
-    // Show cube when both buttons are selected
-    if ((type === 'outer' && selectedInner) || (type === 'inner' && selectedOuter)) {
-      setShowCubeDetail(true);
-    }
   };
 
   // Updated CircleButton component
@@ -73,7 +68,7 @@ const CircularInterface = () => {
         style={{
           width: '10px',
           height: '10px',
-          backgroundColor: isSelected ? '#4ade80' : 'white', // Green when selected
+          backgroundColor: isSelected ? '#ffe1d7' : 'white', // New selected color
           borderRadius: '50%',
           boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
           transition: 'all 0.2s ease',
@@ -95,7 +90,7 @@ const CircularInterface = () => {
       <span style={{
         color: 'white',
         fontSize: '10px',
-        fontWeight: '500',
+        fontWeight: isSelected ? '700' : '500', // Bold when selected
         textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
         pointerEvents: 'none'
       }}>
@@ -104,13 +99,22 @@ const CircularInterface = () => {
     </div>
   );
 
+  const handleCubeClick = () => {
+    if (selectedOuter && selectedInner) {
+      setShowCubeDetail(true);
+    }
+  };
+
   return (
     <>
       <div className="relative w-[400px] h-[400px] mx-auto">
-        <div className="absolute inset-0 rounded-full bg-teal-400">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/7 h-5/7 rounded-full bg-teal-600">
+        <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#6cb8cd' }}>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/7 h-5/7 rounded-full" style={{ backgroundColor: '#b3dbe6' }}>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/7 h-4/7">
-              <SpinningCube onCubeClick={() => setShowCubeDetail(true)} />
+              <SpinningCube 
+                onCubeClick={handleCubeClick}
+                selectedPair={{ outer: selectedOuter, inner: selectedInner }}
+              />
             </div>
           </div>
 
