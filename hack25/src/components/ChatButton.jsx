@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 
 const ChatButton = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -15,11 +14,18 @@ const ChatButton = () => {
     setInput("");
 
     try {
-      const response = await axios.post("/chat", {
-        persona: { usecase: "general" },
-        chat_history: updatedMessages,
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          persona: { usecase: "general" },
+          chat_history: updatedMessages,
+        }),
       });
-      setMessages(response.data);
+      const data = await response.json();
+      setMessages(data);
     } catch (error) {
       console.error("Error sending message:", error);
     }
