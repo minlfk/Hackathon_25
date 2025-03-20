@@ -1,29 +1,20 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { matrix } from '../data/matrix';
+import { useParams } from 'react-router-dom';
+import { data } from '../data/cases';
 
 const DeepDive = () => {
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const id1 = queryParams.get('id1');
-    const id2 = queryParams.get('id2');
-    const id3 = queryParams.get('id3');
+    const { id1 } = useParams();
 
-    const queryNestedObject = (data, id1, id2, id3) => {
-        if (data[id1] && data[id1][id2] && data[id1][id2][id3]) {
-            return data[id1][id2][id3];
-        }
-        return null;
-    };
+    console.log(id1);
 
-    const result = queryNestedObject(matrix, id1, id2, id3);
+    console.log(data[id1]);
 
     return (
         <div>
-            {result ? (
-                <div>{JSON.stringify(result)}</div>
+            {id1 ? (
+                <div>{JSON.stringify(id1)}</div>
             ) : (
-                <div>No data found for the provided query parameters.</div>
+                <div>No data found for the provided path parameters.</div>
             )}
         </div>
     );

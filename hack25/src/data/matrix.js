@@ -1,6 +1,6 @@
-const data = {
-    Resources: {
-      Society: {
+export const data = {
+    resources: {
+      society: {
         1: "Social Innovation",
         2: "Cultural Preservation",
         3: "Ethical Sourcing",
@@ -8,7 +8,7 @@ const data = {
         5: "Human Capital",
         6: "Social Sustainability"
       },
-      Nature: {
+      nature: {
         1: "Circular Economy",
         2: "Renewables",
         3: "Biodiversity conservation",
@@ -16,7 +16,7 @@ const data = {
         5: "Ecosystem Valuation",
         6: "Carbon Neutrality"
       },
-      Technology: {
+      technology: {
         1: "Blockchain",
         2: "Language Models",
         3: "Quantum Computing",
@@ -24,7 +24,7 @@ const data = {
         5: "Computer Vision",
         6: "Classical Computing"
       },
-      Economy: {
+      economy: {
         1: "Management Processes",
         2: "Management Processes",
         3: "Business Processes",
@@ -33,8 +33,8 @@ const data = {
         6: "Support Processes"
       }
     },
-    "Norms and Values": {
-      Society: {
+    nav: {
+      society: {
         1: "Corporate Social Responsibility",
         2: "Ethical Management",
         3: "Cultural Alignment",
@@ -42,7 +42,7 @@ const data = {
         5: "Trust and Legitimacy",
         6: "Community centric values"
       },
-      Nature: {
+      nature: {
         1: "BioPhilic Design",
         2: "Ecological Justice",
         3: "Indigenous knowledge",
@@ -50,7 +50,7 @@ const data = {
         5: "Waste management",
         6: "Environmental Sustainability"
       },
-      Technology: {
+      technology: {
         1: "Physical Security",
         2: "Physical Security",
         3: "Geopolitical Security",
@@ -58,7 +58,7 @@ const data = {
         5: "Cryptographics Primitives",
         6: "Cryptographics Primitives"
       },
-      Economy: {
+      economy: {
         1: "Company Strategy",
         2: "Management Strategy",
         3: "Company Structures",
@@ -67,8 +67,8 @@ const data = {
         6: "Longterm Plans "
       }
     },
-    "Concerns and Interests": {
-      Society: {
+    cai: {
+      society: {
         1: "Engagement",
         2: "Impact Assessment",
         3: "Crisis Management",
@@ -76,7 +76,7 @@ const data = {
         5: "Public Policy",
         6: "Social Licence"
       },
-      Nature: {
+      nature: {
         1: "Climate Action",
         2: "Biodiversity Protection",
         3: "Resource allocation",
@@ -84,7 +84,7 @@ const data = {
         5: "Eco-Innovation",
         6: "Regulatory Compliance"
       },
-      Technology: {
+      technology: {
         1: "Privacy Compliance",
         2: "AI Compliance",
         3: "Legal Compliance",
@@ -92,7 +92,7 @@ const data = {
         5: "Political Neutrality",
         6: "Backward Compality"
       },
-      Economy: {
+      economy: {
         1: "Resource Renewal",
         2: "Capital Renewal",
         3: "Resource Optimization",
@@ -101,8 +101,8 @@ const data = {
         6: "Philosophies"
       }
     },
-    Stakeholders: {
-      Society: {
+    stakeholders: {
+      society: {
         1: "Public",
         2: "Public",
         3: "Media",
@@ -110,7 +110,7 @@ const data = {
         5: "NGOs",
         6: "NGOs"
       },
-      Nature: {
+      nature: {
         1: "Not Applicable",
         2: "Not Applicable",
         3: "Not Applicable",
@@ -118,7 +118,7 @@ const data = {
         5: "Not Applicable",
         6: "Not Applicable"
       },
-      Technology: {
+      technology: {
         1: "SaaS Providers",
         2: "SaaS Providers",
         3: "IaaS Providers",
@@ -126,7 +126,7 @@ const data = {
         5: "Hardware Manufacturers",
         6: "Hardware Manufacturers"
       },
-      Economy: {
+      economy: {
         1: "Investors",
         2: "Customers",
         3: "Employees",

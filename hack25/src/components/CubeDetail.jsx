@@ -3,17 +3,13 @@ import { OrbitControls, Text, useTexture } from '@react-three/drei';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import zukunftLogo from '../assets/zukunft-fabrik-logo.png';
-import aiIcon from '../assets/ai.png';
-import sustainabilityIcon from '../assets/sustainability.png';
-import managementIcon from '../assets/management.png';
-import dataIcon from '../assets/data.png';
-import knowledgeIcon from '../assets/kowledge.png';
-import securityIcon from '../assets/security.png';
 import hsgIcon from '../assets/hsg.png';
 import BottomToolbar from './BottomToolbar';
 import BackButton from './BackButton';
+import { data } from '../data/matrix';
 
 function CubeFace({ position, rotation, color, hoverColor, label, route, navigate, buttonImage }) {
+  
   const [hovered, setHovered] = useState(false);
   
   // Load the button texture
@@ -66,7 +62,6 @@ function CubeFace({ position, rotation, color, hoverColor, label, route, navigat
 
 function DetailedCube({ selectedPair }) {
   const navigate = useNavigate();
-  const [hovered, setHovered] = useState(false);
 
   // Define cube colors for different pairs
   const getCubeColor = (outer, inner) => {
@@ -83,26 +78,17 @@ function DetailedCube({ selectedPair }) {
   };
 
   // Define face configurations based on selected pair
-  const getFaceConfig = (outer, inner) => {
-    if (outer === 'technology' && inner === 'resources') {
-      return [
-        { position: [0, 0, 0.61], rotation: [0, 0, 0], label: "AI", route: "/tech-resources/ai", buttonImage: aiIcon },
-        { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: "Sustainability", route: "/tech-resources/sustainability", buttonImage: sustainabilityIcon },
-        { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: "Management", route: "/tech-resources/management", buttonImage: managementIcon },
-        { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: "Data", route: "/tech-resources/data", buttonImage: dataIcon },
-        { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: "Knowledge", route: "/tech-resources/knowledge", buttonImage: knowledgeIcon },
-        { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: "Security", route: "/tech-resources/security", buttonImage: securityIcon }
-      ];
-    }
-
+  const getFaceConfig = (inner, outer) => {
     // Default face configuration for other combinations
+    const topics = data[outer][inner];
+    debugger;
     return [
-      { position: [0, 0, 0.61], rotation: [0, 0, 0], label: "Front", route: "/front", buttonImage: hsgIcon },
-      { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: "Back", route: "/back", buttonImage: hsgIcon },
-      { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: "Right", route: "/right", buttonImage: hsgIcon },
-      { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: "Left", route: "/left", buttonImage: hsgIcon },
-      { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: "Top", route: "/top", buttonImage: hsgIcon },
-      { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: "Bottom", route: "/bottom", buttonImage: hsgIcon }
+      { position: [0, 0, 0.61], rotation: [0, 0, 0], label: `${topics[1]}`, route: `/${topics[1]}`, buttonImage: hsgIcon },
+      { position: [0, 0, -0.61], rotation: [0, Math.PI, 0], label: `${topics[2]}`, route: `/${topics[2]}`, buttonImage: hsgIcon },
+      { position: [0.61, 0, 0], rotation: [0, Math.PI / 2, 0], label: `${topics[3]}`, route: `/${topics[3]}`, buttonImage: hsgIcon },
+      { position: [-0.61, 0, 0], rotation: [0, -Math.PI / 2, 0], label: `${topics[4]}`, route: `/${topics[4]}`, buttonImage: hsgIcon },
+      { position: [0, 0.61, 0], rotation: [-Math.PI / 2, 0, 0], label: `${topics[5]}`, route: `/${topics[5]}`, buttonImage: hsgIcon },
+      { position: [0, -0.61, 0], rotation: [Math.PI / 2, 0, 0], label: `${topics[6]}`, route: `/${topics[6]}`, buttonImage: hsgIcon }
     ];
   };
 
@@ -213,4 +199,4 @@ const CubeDetail = ({ onClose, selectedPair }) => {
   );
 };
 
-export default CubeDetail; 
+export default CubeDetail;
