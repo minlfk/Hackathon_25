@@ -4,14 +4,14 @@ import { useState } from 'react';
 
 const CircularInterface = () => {
   const [showCubeDetail, setShowCubeDetail] = useState(false);
-  const [selectedOuter, setSelectedOuter] = useState(null);
-  const [selectedInner, setSelectedInner] = useState(null);
+  const [selectedOuter, setSelectedOuter] = useState("technology");
+  const [selectedInner, setSelectedInner] = useState("resources");
   
   // Use consistent measurements
-  const containerSize = 400;
+  const containerSize = 370;
   const center = containerSize / 2;
-  const radiusOuter = 170;
-  const radiusInner = 110;
+  const radiusOuter = 155;
+  const radiusInner = 95;
 
   // Define button data
   const outerButtons = [
@@ -23,8 +23,9 @@ const CircularInterface = () => {
 
   const innerButtons = [
     { label: "Resources", value: "resources" },
-    { label: "Norms & Values", value: "norms" },
-    { label: "Concerns & Interests", value: "concerns" },
+    { label: "Norms\n& Values", value: "norms" },
+    { label: "Concerns\n& Interests", value: "concerns" },
+    { label: "Stakeholders", value: "stakeholders" }
   ];
 
   // Calculate positions for buttons
@@ -36,8 +37,8 @@ const CircularInterface = () => {
     };
   });
 
-  const buttonPositionsInner = Array.from({ length: 3 }).map((_, index) => {
-    const angle = (index * Math.PI * 2) / 8  - Math.PI/1.35;
+  const buttonPositionsInner = Array.from({ length: 4 }).map((_, index) => {
+    const angle = (index * Math.PI * 2) / 10 - Math.PI/1.25;
     return {
       left: `${Math.cos(angle) * radiusInner + center}px`,
       top: `${Math.sin(angle) * radiusInner + center}px`,
@@ -66,15 +67,17 @@ const CircularInterface = () => {
     >
       <button
         style={{
-          width: '10px',
-          height: '10px',
-          backgroundColor: isSelected ? '#ffe1d7' : 'white', // New selected color
-          borderRadius: '50%',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-          transition: 'all 0.2s ease',
-          border: 'none',
-          cursor: 'pointer',
-          marginBottom: '4px',
+            display: 'block',      // Prevents flexbox stretching
+            width: '20px',
+            aspectRatio: '1',      // Ensures a perfect circle
+            backgroundColor: isSelected ? '#ffe1d7' : 'white',
+            borderRadius: '50%',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.2s ease',
+            border: 'none',
+            cursor: 'pointer',
+            padding: 0,            // Removes unnecessary padding
+            flexShrink: 0,  
         }}
         onMouseEnter={(e) => {
           e.target.style.transform = 'scale(1.1)';
@@ -92,7 +95,10 @@ const CircularInterface = () => {
         fontSize: '10px',
         fontWeight: isSelected ? '700' : '500', // Bold when selected
         textShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        whiteSpace: 'pre-line',
+        textAlign: 'center',
+        lineHeight: '1.2'
       }}>
         {data.label}
       </span>
@@ -107,7 +113,7 @@ const CircularInterface = () => {
 
   return (
     <>
-      <div className="relative w-[400px] h-[400px] mx-auto">
+      <div className="relative w-[370px] h-[370px] mx-auto">
         <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#6cb8cd' }}>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/7 h-5/7 rounded-full" style={{ backgroundColor: '#b3dbe6' }}>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/7 h-4/7">
