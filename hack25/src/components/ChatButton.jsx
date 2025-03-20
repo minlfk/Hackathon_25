@@ -1,7 +1,29 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const ChatButton = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+
+  const sendMessage = async () => {
+    if (input.trim() === "") return;
+
+    const newMessage = { role: "user", content: input };
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+    setInput("");
+
+    try {
+      const response = await axios.post("/chat", {
+        persona: { usecase: "general" },
+        chat_history: updatedMessages,
+      });
+      setMessages(response.data);
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
 
   return (
     <>
@@ -54,12 +76,20 @@ const ChatButton = () => {
           </div>
           <div className="h-96 p-4 overflow-y-auto">
             <div className="space-y-4">
-              {/* Example messages */}
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg px-4 py-2 max-w-[80%]">
-                  <p className="text-gray-800">Hello! How can I help you today?</p>
+              {messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`${
+                      msg.role === "user" ? "bg-blue-100" : "bg-gray-100"
+                    } rounded-lg px-4 py-2 max-w-[80%]`}
+                  >
+                    <p className="text-gray-800">{msg.content}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
           <div className="p-4 border-t border-gray-200">
@@ -67,9 +97,14 @@ const ChatButton = () => {
               <input
                 type="text"
                 placeholder="Type a message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               />
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              <button
+                onClick={sendMessage}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
                 Send
               </button>
             </div>
@@ -80,4 +115,4 @@ const ChatButton = () => {
   );
 };
 
-export default ChatButton; 
+export default ChatButton;
