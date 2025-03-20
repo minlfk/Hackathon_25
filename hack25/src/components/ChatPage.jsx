@@ -15,7 +15,7 @@ const ChatPage = () => {
     setInput("");
 
     try {
-      const response = await fetch("tmp-gresfbded4dyfvg6.canadacentral-01.azurewebsites.net", {
+      const response = await fetch("tmp-gresfbded4dyfvg6.canadacentral-01.azurewebsites.net/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
