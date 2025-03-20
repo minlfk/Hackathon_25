@@ -1,45 +1,51 @@
+# Stage 1: Build React app
+FROM node:16 as build
 
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim as backend
+WORKDIR /app/frontend
 
-# Set the working directory
-WORKDIR /app
-
-# Copy the FastAPI app code
-COPY backend/requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
-COPY backend /app
-
-# Use an official Node.js runtime as a parent image
-FROM node:14 as frontend
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the React app code
-COPY frontend/package.json /app/
-COPY frontend/package-lock.json /app/
+COPY frontend/package.json frontend/package-lock.json ./
 RUN npm install
-COPY frontend /app
+
+ENV VITE_BASE_URL=/api
+
+COPY frontend/ ./
 RUN npm run build
 
-# Use a minimal base image to reduce the final image size
-FROM python:3.9-slim
+# Stage 2: Set up Nginx and FastAPI
+FROM python:3.12
 
-# Set the working directory
+# Install Nginx
+RUN apt-get update && apt-get install -y nginx git
+
+# Set up the working directory
 WORKDIR /app
 
-# Copy the backend from the backend stage
-COPY --from=backend /app /app
+# Copy the FastAPI backend
+COPY backend/ /app/backend
 
-# Copy the frontend build from the frontend stage
-COPY --from=frontend /app/build /app/frontend/build
+# Accept GitHub token as a build argument
+ARG GITHUB_TOKEN
 
-# Install Uvicorn
-RUN pip install uvicorn
+# Change to the backend directory where requirements.txt is located
+WORKDIR /app/backend
 
-# Expose the port FastAPI is running on
-EXPOSE 8000
+# Modify the requirements.txt with the GitHub token
+RUN sed -i "s|git+https://github|git+https://$GITHUB_TOKEN@github|" requirements.txt
 
-# Command to run the FastAPI app with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Install Python dependencies
+RUN pip install -r requirements.txt
+
+# Set up the working directory
+WORKDIR /app
+
+# Copy the React build from the previous stage
+COPY --from=build /app/frontend/dist /var/www/html
+
+# Copy Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose ports
+EXPOSE 80 8000
+
+# Start Nginx and FastAPI
+CMD nginx -g 'daemon off;' & uvicorn backend.main:app --host 0.0.0.0 --port 8000
