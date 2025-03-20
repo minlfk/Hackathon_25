@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import BottomToolbar from './BottomToolbar';
 import BackButton from './BackButton';
+import ReactMarkdown from 'react-markdown';
 
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
@@ -15,7 +16,7 @@ const ChatPage = () => {
     setInput("");
 
     try {
-      const response = await fetch("/chat", {
+      const response = await fetch("https://tmp-gresfbded4dyfvg6.canadacentral-01.azurewebsites.net/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +59,9 @@ const ChatPage = () => {
                       msg.role === "user" ? "bg-blue-100" : "bg-gray-100"
                     } rounded-lg px-4 py-2 max-w-[80%]`}
                   >
-                    <p className="text-gray-800">{msg.content}</p>
+                    <div className="text-gray-800">
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -90,4 +93,4 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage; 
+export default ChatPage;
