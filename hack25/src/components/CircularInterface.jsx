@@ -8,10 +8,10 @@ const CircularInterface = () => {
   const [selectedInner, setSelectedInner] = useState("resources");
   
   // Use consistent measurements
-  const containerSize = 400;
+  const containerSize = 370;
   const center = containerSize / 2;
-  const radiusOuter = 170;
-  const radiusInner = 110;
+  const radiusOuter = 155;
+  const radiusInner = 95;
 
   // Define button data
   const outerButtons = [
@@ -109,7 +109,7 @@ const CircularInterface = () => {
 
   return (
     <>
-      <div className="relative w-[400px] h-[400px] mx-auto">
+      <div className="relative w-[370px] h-[370px] mx-auto">
         <div className="absolute inset-0 rounded-full" style={{ backgroundColor: '#6cb8cd' }}>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/7 h-5/7 rounded-full" style={{ backgroundColor: '#b3dbe6' }}>
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/7 h-4/7">

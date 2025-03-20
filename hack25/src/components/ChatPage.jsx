@@ -36,11 +36,18 @@ const ChatPage = () => {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 bg-gray-100">
+    <div className="fixed inset-0 bg-gray-100 flex flex-col">
       <BackButton />
       {/* Chat Window */}
-      <div className="w-full h-[calc(100vh-4rem)] max-w-2xl mx-auto p-4">
+      <div className="flex-1 w-full max-w-2xl mx-auto px-2 md:px-4 pb-20">
         <div className="bg-white rounded-lg shadow-xl h-full flex flex-col">
           <div className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800">Chat Support</h3>
@@ -65,18 +72,19 @@ const ChatPage = () => {
             </div>
           </div>
 
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-2 md:p-4 border-t border-gray-200 bg-white rounded-b-lg">
             <div className="flex space-x-2">
               <input
                 type="text"
                 placeholder="Type a message..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 px-4 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                onKeyPress={handleKeyPress}
+                className="flex-1 px-3 py-2 border text-black border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm"
               />
               <button
                 onClick={sendMessage}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap text-sm"
               >
                 Send
               </button>
