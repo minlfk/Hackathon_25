@@ -2,10 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import { useFrame } from '@react-three/fiber';
 import { useState, useRef } from 'react';
 
-function Cube() {
+function Cube({ onCubeClick }) {
   const meshRef = useRef();
   const [hovered, setHovered] = useState(false);
-  const [clicked, setClicked] = useState(false);
 
   useFrame(() => {
     if (meshRef.current) {
@@ -17,8 +16,8 @@ function Cube() {
   return (
     <mesh
       ref={meshRef}
-      scale={clicked ? 3.6 : 3}
-      onClick={() => setClicked(!clicked)}
+      scale={3}
+      onClick={onCubeClick}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
     >
@@ -33,14 +32,13 @@ function Cube() {
   );
 }
 
-const SpinningCube = () => {
+const SpinningCube = ({ onCubeClick }) => {
   return (
-    // <Canvas camera={{ position: [0, 0, -10], fov: 90 }}>
-    <Canvas camera={{ position: [7, 5, -2], fov: 90 }}>
-      <ambientLight intensity={0.4} />
+    <Canvas camera={{ position: [7, 5, -2], fov: 45 }}>
+      <ambientLight intensity={0.35} />
       <directionalLight position={[5, 5, 3]} intensity={0.8} />
       <pointLight position={[-5, -5, -5]} intensity={0.5} />
-      <Cube />
+      <Cube onCubeClick={onCubeClick} />
     </Canvas>
   );
 };
