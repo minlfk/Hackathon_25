@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import CircularInterface from './CircularInterface';
+import BottomToolbar from './BottomToolbar';
 import logo from '../assets/zukunft-fabrik-logo.png'; // Import the logo
 
 const UserDashboard = () => {
@@ -19,11 +20,14 @@ const UserDashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-full h-[calc(100vh-4rem)] p-4 md:p-6 overflow-auto">
+      <div className="w-full h-[calc(100vh-4rem-4rem)] p-4 md:p-6 overflow-auto"> {/* Adjusted height for toolbar */}
         {/* <div className="w-full bg-white rounded-lg shadow-lg p-8 flex justify-center items-center"> */}
           <CircularInterface />
         {/* </div> */}
       </div>
+
+      {/* Bottom Toolbar */}
+      <BottomToolbar />
     </div>
   );
 };
