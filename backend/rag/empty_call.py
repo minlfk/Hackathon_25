@@ -1,5 +1,8 @@
-import openai
+from rag.keys import *
+from csv import DictReader
 from time import sleep
+from rag.keys import *
+import openai
 openai.api_key=openaikey
 
 def call_gpt4_api(history, prompt, model="gpt-4o", repeat: int = 1, retries: int = 6):
@@ -14,7 +17,7 @@ def call_gpt4_api(history, prompt, model="gpt-4o", repeat: int = 1, retries: int
         if retries==0:
             pass
         sleep(2**(8-retries))
-        return call_gpt4_api_noimage(history, prompt, repeat, retries-1)
+        return call_gpt4_api(history, prompt, repeat, retries-1)
     return response["choices"][0]["message"]["content"]
 
 def get_response(history=[], case_study=""):
