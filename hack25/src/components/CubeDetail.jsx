@@ -15,6 +15,11 @@ function CubeFace({ position, rotation, color, hoverColor, label, route, navigat
   // Load the button texture
   const texture = useTexture(buttonImage || zukunftLogo);
 
+  const handleClick = () => {
+    // Navigate to the topic detail page instead of the direct route
+    navigate(`/topic/${label.toLowerCase().replace(/\s+/g, '-')}`);
+  };
+
   return (
     <group position={position} rotation={rotation}>
       {/* Main face - not clickable */}
@@ -36,7 +41,7 @@ function CubeFace({ position, rotation, color, hoverColor, label, route, navigat
         position={[0, 0, 0.01]}
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
-        onClick={() => navigate(route)}
+        onClick={handleClick}
       >
         <planeGeometry args={[0.4, 0.4]} />
         <meshBasicMaterial 

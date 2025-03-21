@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import BottomToolbar from './BottomToolbar';
 import BackButton from './BackButton';
 import ReactMarkdown from 'react-markdown';
@@ -6,6 +6,15 @@ import ReactMarkdown from 'react-markdown';
 const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const sendMessage = async () => {
     if (input.trim() === "") return;
@@ -48,13 +57,13 @@ const ChatPage = () => {
     <div className="fixed inset-0 bg-gray-100 flex flex-col">
       <BackButton />
       {/* Chat Window */}
-      <div className="flex-1 w-full max-w-2xl mx-auto px-2 md:px-4 pb-20">
+      <div className="flex-1 w-full max-w-2xl mx-auto px-2 md:px-4 pb-20 overflow-hidden">
         <div className="bg-white rounded-lg shadow-xl h-full flex flex-col">
           <div className="p-4 border-b border-gray-200">
             <h3 className="text-lg font-semibold text-gray-800">Chat Support</h3>
           </div>
           
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div className="flex-1 p-4 overflow-y-auto" style={{ scrollbarWidth: 'thin' }}>
             <div className="space-y-4">
               {messages.map((msg, index) => (
                 <div
@@ -72,6 +81,7 @@ const ChatPage = () => {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
           </div>
 
