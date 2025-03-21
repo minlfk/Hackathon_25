@@ -96,7 +96,7 @@ const TopicDetail = () => {
 
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="prose max-w-none">
+          <div className="prose max-w-none text-black">
             <ReactMarkdown>{topicData.description}</ReactMarkdown>
           </div>
         </div>
@@ -118,8 +118,8 @@ const TopicDetail = () => {
                       msg.role === "user" ? "bg-blue-100" : "bg-gray-100"
                     } rounded-lg px-4 py-2 max-w-[80%]`}
                   >
-                    <div className="text-gray-800">
-                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    <div className="text-gray-800 text-black">
+                      <div>{msg.content}</div>
                     </div>
                   </div>
                 </div>
@@ -159,7 +159,7 @@ const TopicDetail = () => {
           {isCaseStudiesOpen && (
             <div className="p-4 border-t border-gray-200">
               {topicData.caseStudies.map((study, index) => (
-                <div key={index} className="mb-4">
+                <div key={index} className="mb-4 text-black">
                   <h3 className="font-semibold mb-2">{study.title}</h3>
                   <p className="text-gray-600">{study.content}</p>
                 </div>
