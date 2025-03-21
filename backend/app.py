@@ -26,8 +26,10 @@ def chat(request: ChatRequest):
     # Assuming llm is defined elsewhere and imported
     
     if request.persona["usecase"] == "exam":
+        print("Exam Mode")
         chat_history = exam_mode_response(request.chat_history)
     elif request.persona["usecase"] == "case-study" and request.case_study:
+        print("Case Study Mode")
         _, chat_history = empty_call_response(request.chat_history, request.case_study)
     else:
         chat_history = request.chat_history

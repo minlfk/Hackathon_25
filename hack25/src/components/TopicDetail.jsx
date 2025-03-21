@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import BackButton from './BackButton';
 import BottomToolbar from './BottomToolbar';
 import ReactMarkdown from 'react-markdown';
+import { data } from '../data/cases';
 
 const TopicDetail = () => {
   const { topic } = useParams();
@@ -11,20 +12,15 @@ const TopicDetail = () => {
   const [isCaseStudiesOpen, setIsCaseStudiesOpen] = useState(false);
   const [isContactsOpen, setIsContactsOpen] = useState(false);
 
+  const formattedTopic = topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  const topic_ = `/topic/${topic}`;
+  const topicData_ = data[formattedTopic]; 
+
   // Example data - replace with actual data from your backend
   const topicData = {
-    title: "AI",
+    title: formattedTopic,
     summary: "Artificial Intelligence in Technology Resources",
-    description: `Artificial Intelligence (AI) represents a transformative force in technological resource management. 
-    It encompasses machine learning algorithms, neural networks, and advanced data processing capabilities that can 
-    revolutionize how organizations handle and optimize their technological resources.
-    
-    Key aspects include:
-    - Automated resource allocation
-    - Predictive maintenance
-    - Intelligent scaling
-    - Performance optimization
-    - Resource usage analytics`,
+    description: data[formattedTopic],
     caseStudies: [
       {
         title: "AI Implementation in Resource Management",
@@ -48,6 +44,7 @@ const TopicDetail = () => {
   };
 
   const sendMessage = async () => {
+    console.log("We want to send a message", input)
     if (input.trim() === "") return;
 
     const newMessage = { role: "user", content: input };
@@ -56,16 +53,19 @@ const TopicDetail = () => {
     setInput("");
 
     try {
+      console.log("Sending message:", input);
       const response = await fetch("https://tmp-gresfbded4dyfvg6.canadacentral-01.azurewebsites.net/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          persona: { usecase: "exam" },
+          persona: { usecase: "case-study" },
           chat_history: updatedMessages,
+          case_study: JSON.stringify(topicData_).replace(/[^\w\s]/gi, ''),
         }),
       });
+      console.log("Response:", response);
       const data = await response.json();
       if (Array.isArray(data)) {
         setMessages(data);
@@ -79,20 +79,6 @@ const TopicDetail = () => {
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <BackButton />
-        
-        {/* Selection Summary */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="bg-blue-100 rounded-full p-3">
-              <span className="text-blue-800 font-semibold">Technology</span>
-            </div>
-            <div className="bg-purple-100 rounded-full p-3">
-              <span className="text-purple-800 font-semibold">Resources</span>
-            </div>
-          </div>
-          <h1 className="text-2xl font-bold mt-4">{topicData.title}</h1>
-          <p className="text-gray-600">{topicData.summary}</p>
-        </div>
 
         {/* Main Content */}
         <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
@@ -133,7 +119,7 @@ const TopicDetail = () => {
                 placeholder="Type a message..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="flex-1 text-black px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               />
               <button
                 onClick={sendMessage}
@@ -145,7 +131,7 @@ const TopicDetail = () => {
           </div>
         </div>
 
-        {/* Case Studies Dropdown */}
+        {/* Case Studies Dropdown 
         <div className="bg-white rounded-lg shadow-lg mb-6">
           <button
             onClick={() => setIsCaseStudiesOpen(!isCaseStudiesOpen)}
@@ -166,10 +152,10 @@ const TopicDetail = () => {
               ))}
             </div>
           )}
-        </div>
+        </div>*/}
 
         {/* Useful Contacts Dropdown */}
-        <div className="bg-white rounded-lg shadow-lg mb-6">
+        {/*<div className="bg-white rounded-lg shadow-lg mb-6">
           <button
             onClick={() => setIsContactsOpen(!isContactsOpen)}
             className="w-full p-4 text-left font-semibold flex justify-between items-center"
@@ -179,7 +165,7 @@ const TopicDetail = () => {
               ▼
             </span>
           </button>
-          {isContactsOpen && (
+          isContactsOpen && (
             <div className="p-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-4">
               {topicData.contacts.map((contact, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg">
@@ -190,8 +176,8 @@ const TopicDetail = () => {
                 </div>
               ))}
             </div>
-          )}
-        </div>
+          )
+        </div>*/}
       </div>
       <BottomToolbar />
     </div>
